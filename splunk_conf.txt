@@ -1,0 +1,28 @@
+Initial state:
+
+Fri Jan 31 16:22:12 UTC 2025
+
+-- MD5 hash --
+c70754d9c7bab08a8c441f90c37f27eb  config.conf
+
+-- File permissions --
+total 12K
+-rwxrwxrwx 1 root root  185 Jan 31 15:46 config.conf*
+
+==============================================================
+
+Mitigation complete:
+
+Fri Jan 31 16:30:58 UTC 2025
+-- MD5 hash --
+570f7394028c6260761ce64c68ea687d  config.conf
+
+-- File permissions --
+total 12K
+-rw-r--r-- 1 splunk splunk-admin  293 Jan 31 16:30 config.conf
+
+-- System user --
+splunk:x:131:1002::/home/splunk:/usr/sbin/nologin
+
+-- Admin group --
+splunk-admin:x:1002:fstack
