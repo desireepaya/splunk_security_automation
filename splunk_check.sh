@@ -4,9 +4,13 @@
 # See [internal knowledge base] for more info.
 
 # define variables
-SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL:-"MISSING_WEBHOOK"}
 config_file="/opt/splunk/etc/system/local/config.conf"
 hash_file="/opt/splunk/etc/system/local/config.conf.md5"
+
+if [[ -z "$SLACK_WEBHOOK_URL" ]]; then
+    echo "ERROR: Slack webhook is not set!" >&2
+    return 1
+fi
 
 # compare current file to hash
 md5sum -c "$hash_file" >/dev/null 2>&1
@@ -17,11 +21,6 @@ status=$? #capture exit code
 send_slack_alert() {
     local message="$1"
     local payload="{\"text\": \"$message\"}"
-
-    if [[ -z "$SLACK_WEBHOOK_URL" || "$SLACK_WEBHOOK_URL" == "MISSING_WEBHOOK" ]]; then
-        echo "ERROR: Slack webhook is not set!" >&2
-        return 1
-    fi
 
     curl -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL"
 }
